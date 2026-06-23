@@ -47,12 +47,13 @@ function switchTab(targetTabId) {
         tab.setAttribute('aria-selected', isTarget ? 'true' : 'false');
     });
 
-    // Sync mobile navigation dock items
-    const mobileTabs = document.querySelectorAll('.nav-item');
-    mobileTabs.forEach(tab => {
-        const isTarget = tab.getAttribute('data-tab') === targetTabId;
-        tab.classList.toggle('active', isTarget);
-    });
+    // Close mobile hamburger menu on selection
+    const capsuleMenu = document.querySelector('.capsule-menu');
+    const capsuleNav = document.querySelector('.capsule-nav');
+    if (capsuleMenu && capsuleNav) {
+        capsuleMenu.classList.remove('open');
+        capsuleNav.classList.remove('menu-open');
+    }
 
     // Dynamic Render
     renderCurrentTab();
@@ -76,14 +77,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const mobileTabs = document.querySelectorAll('.nav-item');
-    mobileTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            switchTab(tab.getAttribute('data-tab'));
-        });
-    });
+    // 4. Hamburger Menu Toggle Listener
+    const menuToggleBtn = document.getElementById('menu-toggle');
+    const capsuleMenu = document.querySelector('.capsule-menu');
+    const capsuleNav = document.querySelector('.capsule-nav');
 
-    // 4. Attach Search Interactivity
+    if (menuToggleBtn && capsuleMenu && capsuleNav) {
+        menuToggleBtn.addEventListener('click', () => {
+            capsuleMenu.classList.toggle('open');
+            capsuleNav.classList.toggle('menu-open');
+        });
+    }
+
+    // 5. Attach Search Interactivity
     const searchInput = document.getElementById('global-search');
     searchInput.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase().trim();

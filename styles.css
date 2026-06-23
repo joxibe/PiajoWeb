@@ -153,6 +153,7 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.08);
     transition: background-color var(--transition), border-color var(--transition);
+    position: relative; /* Added for absolute mobile menu placement */
 }
 
 [data-theme="dark"] .capsule-nav {
@@ -177,7 +178,7 @@ body {
 
 /* Menu items inside capsule */
 .capsule-menu {
-    display: none; /* Hide on mobile: uses floating bottom dock */
+    display: none; /* Hide on mobile by default: toggled by hamburger menu */
     align-items: center;
     gap: 8px;
 }
@@ -237,6 +238,69 @@ body {
     transform: scale(0.98);
 }
 
+/* Hamburger menu button styled cleanly */
+.capsule-btn-menu {
+    background: none;
+    border: none;
+    outline: none;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--capsule-accent);
+    border-radius: 50%;
+    margin-left: 8px;
+    transition: background-color var(--transition);
+}
+
+.capsule-btn-menu:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Toggle menu icons depending on state */
+.capsule-btn-menu .icon-close { display: none; }
+.capsule-btn-menu .icon-menu { display: block; }
+
+.capsule-nav.menu-open .icon-close { display: block; }
+.capsule-nav.menu-open .icon-menu { display: none; }
+
+/* Responsive Mobile Dropdown Styles */
+@media (max-width: 767px) {
+    .capsule-menu {
+        display: none;
+    }
+    .capsule-menu.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0;
+        right: 0;
+        background-color: var(--capsule-bg);
+        border-radius: var(--radius-md);
+        padding: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        gap: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        z-index: 1000;
+        animation: menuSlideDown var(--transition) forwards;
+    }
+    
+    .capsule-link {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+    }
+}
+
+@keyframes menuSlideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* Theme label text switches */
 .btn-text-light { display: block; }
 .btn-text-dark { display: none; }
@@ -244,8 +308,11 @@ body {
 [data-theme="dark"] .btn-text-light { display: none; }
 [data-theme="dark"] .btn-text-dark { display: block; }
 
-/* Show capsule menu on larger screens */
+/* Show capsule menu on larger screens, hide hamburger */
 @media (min-width: 768px) {
+    .capsule-btn-menu {
+        display: none;
+    }
     .capsule-menu {
         display: flex;
     }
@@ -259,7 +326,7 @@ body {
     max-width: 800px;
     margin: 0 auto;
     width: 100%;
-    padding: 20px 24px 100px 24px; /* extra bottom padding for mobile dock */
+    padding: 20px 24px 30px 24px; /* removed extra bottom padding */
 }
 
 @media (min-width: 768px) {
@@ -879,134 +946,7 @@ textarea:focus {
     flex-grow: 1;
 }
 
-/* ==========================================================================
-   FLOATING BOTTOM DOCK NAVIGATION (MOBILE-FIRST) - PASTEL THEME
-   ========================================================================== */
 
-.bottom-nav-wrapper {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 16px 20px 24px 20px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, var(--bg-window) 60%);
-    pointer-events: none;
-    z-index: 1000;
-}
-
-[data-theme="dark"] .bottom-nav-wrapper {
-    background: linear-gradient(180deg, rgba(20, 20, 22, 0) 0%, var(--bg-window) 60%);
-}
-
-.bottom-nav {
-    max-width: 500px;
-    margin: 0 auto;
-    background-color: var(--capsule-bg); /* Solid Color 1 */
-    border-radius: var(--radius-pill);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
-    pointer-events: auto;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: background-color var(--transition), border-color var(--transition);
-}
-
-[data-theme="dark"] .bottom-nav {
-    background-color: var(--capsule-bg); /* Solid Color 1 */
-    border-color: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
-}
-
-.bottom-nav-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 8px 12px;
-}
-
-.nav-item {
-    background: none;
-    border: none;
-    outline: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    color: var(--capsule-text); /* Color-matched slate text */
-    font-size: 9px;
-    font-weight: 700;
-    cursor: pointer;
-    width: 18%;
-    padding: 6px 0;
-    transition: color var(--transition);
-}
-
-[data-theme="dark"] .nav-item {
-    color: var(--capsule-text);
-}
-
-.nav-item i {
-    font-size: 20px;
-    color: var(--capsule-text);
-    transition: transform var(--transition), color var(--transition);
-}
-
-[data-theme="dark"] .nav-item i {
-    color: var(--capsule-text);
-}
-
-.nav-item.active {
-    color: var(--capsule-accent); /* Active Color 5 */
-}
-
-[data-theme="dark"] .nav-item.active {
-    color: var(--capsule-accent);
-}
-
-.nav-item.active i {
-    transform: translateY(-2px);
-    color: var(--capsule-accent);
-}
-
-[data-theme="dark"] .nav-item.active i {
-    color: var(--capsule-accent);
-}
-
-/* Floating Action Button (Center item) styled matching the dock color with active cyan border */
-.nav-fab {
-    width: 44px;
-    height: 44px;
-    background-color: var(--capsule-bg); /* Match dock background */
-    border: 2px solid var(--capsule-accent); /* Cyan border */
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: translateY(-16px);
-    box-shadow: 0 6px 16px rgba(0, 28, 44, 0.2);
-    transition: transform var(--transition);
-}
-
-[data-theme="dark"] .nav-fab {
-    background-color: var(--capsule-bg);
-    border-color: var(--capsule-accent);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-}
-
-.nav-fab i {
-    font-size: 20px;
-    color: var(--capsule-accent) !important; /* Cyan icon */
-}
-
-.nav-item.active .nav-fab {
-    transform: translateY(-18px) scale(1.05);
-}
-
-/* Responsive configurations */
-@media (min-width: 768px) {
-    /* Hide floating bottom nav wrapper on Desktop viewports */
-    .bottom-nav-wrapper {
-        display: none;
-    }
-}
 
 /* Helper background flat color badges */
 .flat-blue { background-color: var(--flat-blue-light); color: var(--flat-blue); }
