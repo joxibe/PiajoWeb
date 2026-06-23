@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pijao Residencial</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Outer Screen Frame (Dark border outer container to match reference image) -->
+    <div class="screen-frame">
+        <div class="app-window">
+            
+            <!-- Top Capsule Navigation (Styled exactly like the reference image) -->
+            <header class="app-header-container">
+                <div class="capsule-nav">
+                    <div class="capsule-logo" aria-label="Logo Pijao">
+                        <span class="capsule-logo-text">Pijao web</span>
+                    </div>
+                    <div class="capsule-menu" role="tablist">
+                        <button class="capsule-link active" data-tab="eventos" role="tab" aria-selected="true">Eventos</button>
+                        <button class="capsule-link" data-tab="encuestas" role="tab" aria-selected="false">Encuestas</button>
+                        <button class="capsule-link" data-tab="manuales" role="tab" aria-selected="false">Manuales</button>
+                        <button class="capsule-link" data-tab="reglamentos" role="tab" aria-selected="false">Reglamentos</button>
+                        <button class="capsule-link" data-tab="pqr" role="tab" aria-selected="false">PQR</button>
+                        <button class="capsule-link" data-tab="gestiones" role="tab" aria-selected="false">Gestiones</button>
+                    </div>
+                    <div class="capsule-actions">
+                        <button id="theme-toggle" class="capsule-btn-accent">
+                            <span class="btn-text-light">Modo Claro</span>
+                            <span class="btn-text-dark">Modo Oscuro</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main App Container -->
+            <main class="app-container">
+                <!-- Hero section with big typography and marker underline -->
+                <section class="hero-section">
+                    <div class="hero-content">
+                        <h2>Tu copropiedad, <span class="highlight-underline">simplificada</span></h2>
+                        <p class="hero-subtext">Registra PQR, vota en encuestas, consulta reglamentos y mantente al día de los eventos comunitarios de la Unidad Residencial Pijao.</p>
+                    </div>
+                    
+                    <div class="search-box">
+                        <i class="ti ti-search search-icon"></i>
+                        <input type="text" id="global-search" placeholder="Buscar en esta sección...">
+                    </div>
+                </section>
+
+                <!-- Content Area (Dynamically Rendered Component Modules) -->
+                <section class="content-section" id="app-content">
+                    <!-- JS dynamic content injected here -->
+                </section>
+            </main>
+
+            <!-- Floating Dock Navigation for mobile-first feel (matches theme aesthetic) -->
+            <footer class="bottom-nav-wrapper">
+                <nav class="bottom-nav">
+                    <div class="bottom-nav-container">
+                        <button class="nav-item active" data-tab="eventos">
+                            <i class="ti ti-calendar-event"></i>
+                            <span>Eventos</span>
+                        </button>
+                        <button class="nav-item" data-tab="encuestas">
+                            <i class="ti ti-chart-bar"></i>
+                            <span>Votos</span>
+                        </button>
+                        <button class="nav-item" data-tab="pqr">
+                            <div class="nav-fab">
+                                <i class="ti ti-message-report"></i>
+                            </div>
+                            <span>PQR</span>
+                        </button>
+                        <button class="nav-item" data-tab="manuales">
+                            <i class="ti ti-book"></i>
+                            <span>Info</span>
+                        </button>
+                        <button class="nav-item" data-tab="gestiones">
+                            <i class="ti ti-settings-automation"></i>
+                            <span>Gestiones</span>
+                        </button>
+                    </div>
+                </nav>
+            </footer>
+
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
